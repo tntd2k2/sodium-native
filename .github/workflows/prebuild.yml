@@ -37,8 +37,11 @@ jobs:
       with:
         bun-version: latest
     - uses: goto-bus-stop/setup-zig@v2
+    - uses: jwlawson/actions-setup-cmake@v2
+      with:
+        cmake-version: '3.25.x'
     - run: npm install -g cmake-js
-    - run: rm -rf .zig-cache zig-out  && zig build -Doptimize=ReleaseFast && cmake-js clean && cmake-js compile
+    - run: zig build -Doptimize=ReleaseFast && cmake-js clean && cmake-js compile
     - run: bun hello.js
     - run: node hello.js
     - uses: actions/upload-artifact@v4
